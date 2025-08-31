@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Orca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        footer {
+            animation: fadeBounce 2s ease-in, bounce 2s infinite alternate;
+            text-align: center;
+            color: #0074d9;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        @keyframes fadeBounce {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        body {
+            background-color: #7fdbff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0 10px;
+            transition: background 0.5s;
+        }
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-top: 30px;
+            letter-spacing: 2px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 24px 18px 32px 18px;
+        }
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 14px;
+            display: block;
+            margin: 18px auto 10px auto;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+            transition: transform 0.2s;
+        }
+        img:hover {
+            transform: scale(1.04) rotate(-2deg);
+        }
+        .btn {
+            background: #0074d9;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 12px 8px 0 0;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn:hover {
+            background: #005fa3;
+            transform: scale(1.06);
+        }
+        .fact {
+            margin: 22px auto 0 auto;
+            padding: 14px 18px;
+            background: #e0f7fa;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            font-weight: bold;
+            color: #006666;
+            font-size: 1.08rem;
+            display: none;
+        }
+        .quiz {
+            margin: 22px auto 0 auto;
+            padding: 14px 18px;
+            background: #fffbe6;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            color: #b8860b;
+            font-size: 1.08rem;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .quiz-options button {
+            margin: 6px 8px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            background: #b2f7ef;
+            color: #003366;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .quiz-options button:hover {
+            background: #7fdbff;
+        }
+        .quiz-result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        a {
+            color: #0074d9;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #005fa3;
+            text-decoration: underline;
+        }
+        hr {
+            border: 0;
+            height: 2px;
+            background: #b2f7ef;
+            margin: 30px 0;
+        }
+        .about-me {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 30px 0 0 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .about-me img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .about-me h2 {
+            text-align: center;
+            margin: 10px 0 6px 0;
+            color: #0074d9;
+        }
+        .about-me p {
+            text-align: center;
+            font-size: 1rem;
+            color: #003366;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px 2vw 20px 2vw;
+            }
+            img {
+                max-width: 95vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Orca</h1>
+        <hr>
+        <p>
+            The <b>orca (Orcinus orca)</b>, or <b>killer whale</b>, is a toothed whale and the largest member of the oceanic dolphin family. The only extant species in the genus Orcinus, it is recognizable by its distinct pigmentation; being mostly black on top, white on the bottom and having recognizable white eye patches. A cosmopolitan species, it inhabits a wide range of marine environments, from Arctic to Antarctic regions to tropical seas, but is more commonly documented in temperate or cooler coastal waters. Scientists have proposed dividing the global population into races, subspecies, or possibly even species.
+            <br><br>
+            Orcas are apex predators with a diverse diet. Individual populations often specialize in particular types of prey, including fish, sharks, rays, and marine mammals such as seals, dolphins, and whales. They are highly social, with some populations forming stable matrilineal family groups (pods). Their sophisticated hunting techniques and vocal behaviors, often unique to specific groups and passed down from generation to generation, are considered to be manifestations of animal culture. The most studied populations are off the west coast of North America, which include fish-eating "residents", mammal-eating "transients", and offshores.
+        </p>
+        <img src="https://i.ibb.co/KchTFvdj/orca-hunting-in-the-wild.jpg" alt="Orca in the wild">
+        <div style="text-align:center;">
+            <b>Learn more about the Orca <a href="https://en.wikipedia.org/wiki/Orca" target="_blank">here</a></b>
+        </div>
+        <div style="text-align:center;">
+            <button class="btn" onclick="changeBackground()">Change Background</button>
+            <button class="btn" onclick="showFact()">Show Orca Fact</button>
+            <button class="btn" onclick="showQuiz()">Orca Quiz</button>
+            <button class="btn" onclick="resetPage()">Reset</button>
+        </div>
+        <div id="factBox" class="fact"></div>
+        <div id="quizBox" class="quiz"></div>
+        <hr>
+        <div class="about-me">
+            <img src="https://ui-avatars.com/api/?name=D&background=0074d9&color=fff&size=90" alt="Divyank's Avatar">
+            <h2>About the Author</h2>
+            <p>
+                Hi! I'm <b>Divyank</b>, a curious learner and aspiring web developer.<br>
+                I enjoy exploring the wonders of nature and technology.<br>
+                This page was created to share my fascination with orcas and to practice my coding skills.<br>
+                Thanks for visiting!
+            </p>
+        </div>
+        <footer>
+            Made with ❤️ by Divyank <br><br>
+        </footer>
+    </div>
+
+    <!-- 🎉 Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const colors = [
+            '#7fdbff', '#b2f7ef', '#e0f7fa', '#cce7ff', '#f0f8ff',
+            '#e6ffe6', '#fffbe6', '#ffe6fa', '#f9e6ff', '#e6f9ff'
+        ];
+        const facts = [
+            "Orcas are the largest members of the dolphin family.",
+            "A group of orcas is called a pod.",
+            "Orcas can live up to 90 years in the wild.",
+            "They are found in every ocean on Earth.",
+            "Orcas use echolocation to hunt and communicate.",
+            "Orcas are apex predators with no natural enemies.",
+            "Each orca pod has its own unique dialect.",
+            "Orcas can swim up to 56 km/h (35 mph)!",
+            "Orcas are known to work together to hunt seals off ice floes.",
+            "Baby orcas are called calves.",
+            "Orcas are sometimes called 'wolves of the sea' because they hunt in packs."
+        ];
+        const quizQuestions = [
+            { question: "What is another name for the orca?", options: ["Blue whale", "Killer whale", "Beluga", "Narwhal"], answer: "Killer whale" },
+            { question: "Orcas belong to which animal family?", options: ["Sharks", "Dolphins", "Seals", "Whales"], answer: "Dolphins" },
+            { question: "What is a group of orcas called?", options: ["School", "Pod", "Pack", "Flock"], answer: "Pod" }
+        ];
+        let quizIndex = 0;
+
+        function hideQuiz() {
+            const quizBox = document.getElementById('quizBox');
+            quizBox.style.display = 'none';
+            quizBox.textContent = '';
+        }
+
+        function showQuiz() {
+            document.getElementById('factBox').style.display = 'none';
+            quizIndex = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const quizBox = document.getElementById('quizBox');
+            quizBox.innerHTML = '';
+            quizBox.style.display = 'block';
+            if (quizIndex < quizQuestions.length) {
+                const q = quizQuestions[quizIndex];
+                const qDiv = document.createElement('div');
+                qDiv.className = 'quiz-question';
+                qDiv.textContent = q.question;
+                quizBox.appendChild(qDiv);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'quiz-options';
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.textContent = opt;
+                    btn.onclick = () => checkQuizAnswer(opt);
+                    optionsDiv.appendChild(btn);
+                });
+                quizBox.appendChild(optionsDiv);
+            } else {
+                const done = document.createElement('div');
+                done.className = 'quiz-result';
+                done.textContent = "Quiz complete! 🎉 Thanks for trying the Orca Quiz!";
+                quizBox.appendChild(done);
+                launchConfetti();
+                setTimeout(hideQuiz, 5000);
+            }
+        }
+
+        function checkQuizAnswer(selected) {
+            const q = quizQuestions[quizIndex];
+            const quizBox = document.getElementById('quizBox');
+            const result = document.createElement('div');
+            result.className = 'quiz-result';
+            if (selected === q.answer) {
+                result.textContent = "Correct! ✅";
+            } else {
+                result.textContent = `Oops! The correct answer is "${q.answer}".`;
+            }
+            quizBox.appendChild(result);
+            setTimeout(() => {
+                quizIndex++;
+                renderQuizQuestion();
+            }, 1200);
+        }
+
+        function changeBackground() {
+            let current = document.body.style.backgroundColor;
+            let newColor;
+            do {
+                newColor = colors[Math.floor(Math.random() * colors.length)];
+            } while (newColor === current);
+            document.body.style.backgroundColor = newColor;
+        }
+
+        function showFact() {
+            hideQuiz();
+            const factBox = document.getElementById('factBox');
+            let lastFact = factBox.textContent;
+            let newFact;
+            do {
+                newFact = facts[Math.floor(Math.random() * facts.length)];
+            } while (newFact === lastFact && facts.length > 1);
+            factBox.style.display = 'block';
+            factBox.textContent = newFact;
+        }
+
+        function resetPage() {
+            document.body.style.backgroundColor = '#7fdbff';
+            const factBox = document.getElementById('factBox');
+            factBox.style.display = 'none';
+            factBox.textContent = '';
+            hideQuiz();
+        }
+
+        // 🎉 Confetti function
+        function launchConfetti() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+    </script>
+</body>
+</html>
