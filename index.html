@@ -175,9 +175,10 @@
         <h1>The Orca</h1>
         <hr>
         <p>
-            The <b>orca (Orcinus orca)</b>, or <b>killer whale</b>, is a toothed whale and the largest member of the oceanic dolphin family. The only extant species in the genus Orcinus, it is recognizable by its distinct pigmentation; being mostly black on top, white on the bottom and having recognizable white eye patches. A cosmopolitan species, it inhabits a wide range of marine environments, from Arctic to Antarctic regions to tropical seas, but is more commonly documented in temperate or cooler coastal waters. Scientists have proposed dividing the global population into races, subspecies, or possibly even species.
+                       The <b>orca (Orcinus orca)</b>, or <b>killer whale</b>, is a toothed whale and the largest member of the oceanic dolphin family. The only extant species in the genus Orcinus, it is recognizable by its distinct pigmentation; being mostly black on top, white on the bottom and having recognizable white eye patches. A cosmopolitan species, it inhabits a wide range of marine environments, from Arctic to Antarctic regions to tropical seas, but is more commonly documented in temperate or cooler coastal waters. Scientists have proposed dividing the global population into races, subspecies, or possibly even species.
             <br><br>
             Orcas are apex predators with a diverse diet. Individual populations often specialize in particular types of prey, including fish, sharks, rays, and marine mammals such as seals, dolphins, and whales. They are highly social, with some populations forming stable matrilineal family groups (pods). Their sophisticated hunting techniques and vocal behaviors, often unique to specific groups and passed down from generation to generation, are considered to be manifestations of animal culture. The most studied populations are off the west coast of North America, which include fish-eating "residents", mammal-eating "transients", and offshores.
+
         </p>
         <img src="https://i.ibb.co/KchTFvdj/orca-hunting-in-the-wild.jpg" alt="Orca in the wild">
         <div style="text-align:center;">
@@ -200,6 +201,7 @@
                 I enjoy exploring the wonders of nature and technology.<br>
                 This page was created to share my fascination with orcas and to practice my coding skills.<br>
                 Thanks for visiting!
+
             </p>
         </div>
         <footer>
@@ -226,7 +228,7 @@
             "Orcas can swim up to 56 km/h (35 mph)!",
             "Orcas are known to work together to hunt seals off ice floes.",
             "Baby orcas are called calves.",
-            "Orcas are sometimes called 'wolves of the sea' because they hunt in packs."
+            "Orcas are sometimes called 'wolves of the sea'."
         ];
         const quizQuestions = [
             { question: "What is another name for the orca?", options: ["Blue whale", "Killer whale", "Beluga", "Narwhal"], answer: "Killer whale" },
@@ -273,7 +275,7 @@
                 done.textContent = "Quiz complete! 🎉 Thanks for trying the Orca Quiz!";
                 quizBox.appendChild(done);
                 launchConfetti();
-                setTimeout(hideQuiz, 5000);
+                setTimeout(hideQuiz, 10000);
             }
         }
 
@@ -323,22 +325,18 @@
             hideQuiz();
         }
 
-        // 🎉 Confetti function
         function launchConfetti() {
-            const duration = 3000;
+            const duration = 6000;
             const end = Date.now() + duration;
+
             (function frame() {
                 confetti({
                     particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 }
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 }
+                    angle: 90,
+                    spread: 60,
+                    origin: { x: Math.random(), y: 0 },
+                    gravity: 0.9,
+                    ticks: 250,
                 });
                 if (Date.now() < end) {
                     requestAnimationFrame(frame);
