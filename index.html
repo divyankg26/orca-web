@@ -168,6 +168,29 @@
                 max-width: 95vw;
             }
         }
+        /* 🌊 OCEAN LAYER (does NOT affect layout) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at bottom, rgba(0,150,255,0.18), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 🐋 floating orcas background */
+.orca-bg {
+    position: fixed;
+    font-size: 26px;
+    opacity: 0.15;
+    animation: swim linear infinite;
+    z-index: 0;
+}
+
+@keyframes swim {
+    0% { transform: translateX(-10vw); }
+    100% { transform: translateX(110vw); }
+}
     </style>
 </head>
 <body>
@@ -212,137 +235,174 @@
     <!-- 🎉 Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <script>
-        const colors = [
-            '#7fdbff', '#b2f7ef', '#e0f7fa', '#cce7ff', '#f0f8ff',
-            '#e6ffe6', '#fffbe6', '#ffe6fa', '#f9e6ff', '#e6f9ff'
-        ];
-        const facts = [
-            "Orcas are the largest members of the dolphin family.",
-            "A group of orcas is called a pod.",
-            "Orcas can live up to 90 years in the wild.",
-            "They are found in every ocean on Earth.",
-            "Orcas use echolocation to hunt and communicate.",
-            "Orcas are apex predators with no natural enemies.",
-            "Each orca pod has its own unique dialect.",
-            "Orcas can swim up to 56 km/h (35 mph)!",
-            "Orcas are known to work together to hunt seals off ice floes.",
-            "Baby orcas are called calves.",
-            "Orcas are sometimes called 'wolves of the sea'."
-        ];
-        const quizQuestions = [
-            { question: "What is another name for the orca?", options: ["Blue whale", "Killer whale", "Beluga", "Narwhal"], answer: "Killer whale" },
-            { question: "Orcas belong to which animal family?", options: ["Sharks", "Dolphins", "Seals", "Whales"], answer: "Dolphins" },
-            { question: "What is a group of orcas called?", options: ["School", "Pod", "Pack", "Flock"], answer: "Pod" }
-        ];
-        let quizIndex = 0;
+   <script>
+const colors = [
+    '#7fdbff', '#b2f7ef', '#e0f7fa', '#cce7ff', '#f0f8ff',
+    '#e6ffe6', '#fffbe6', '#ffe6fa', '#f9e6ff', '#e6f9ff'
+];
 
-        function hideQuiz() {
-            const quizBox = document.getElementById('quizBox');
-            quizBox.style.display = 'none';
-            quizBox.textContent = '';
-        }
+const facts = [
+    "Orcas are the largest members of the dolphin family.",
+    "A group of orcas is called a pod.",
+    "Orcas can live up to 90 years in the wild.",
+    "They are found in every ocean on Earth.",
+    "Orcas use echolocation to hunt and communicate.",
+    "Orcas are apex predators with no natural enemies.",
+    "Each orca pod has its own unique dialect.",
+    "Orcas can swim up to 56 km/h (35 mph)!",
+    "Baby orcas are called calves."
+];
 
-        function showQuiz() {
-            document.getElementById('factBox').style.display = 'none';
-            quizIndex = 0;
+const quizQuestions = [
+    { question: "What is another name for the orca?", options: ["Blue whale", "Killer whale", "Beluga", "Narwhal"], answer: "Killer whale" },
+    { question: "Orcas belong to which animal family?", options: ["Sharks", "Dolphins", "Seals", "Whales"], answer: "Dolphins" },
+    { question: "What is a group of orcas called?", options: ["School", "Pod", "Pack", "Flock"], answer: "Pod" }
+];
+
+let quizIndex = 0;
+let score = 0;
+let timer = null;
+let timeLeft = 10;
+
+/* 🌊 background */
+function changeBackground() {
+    document.body.style.backgroundColor =
+        colors[Math.floor(Math.random() * colors.length)];
+}
+
+/* 🐋 fact */
+function showFact() {
+    hideQuiz();
+    const factBox = document.getElementById('factBox');
+    factBox.style.display = 'block';
+    factBox.textContent =
+        facts[Math.floor(Math.random() * facts.length)];
+}
+
+/* ❌ hide quiz */
+function hideQuiz() {
+    const quizBox = document.getElementById('quizBox');
+    quizBox.style.display = 'none';
+    quizBox.textContent = '';
+    clearInterval(timer);
+}
+
+/* 🎮 start quiz */
+function showQuiz() {
+    hideQuiz();
+    quizIndex = 0;
+    score = 0;
+    renderQuizQuestion();
+}
+
+/* ⏱ quiz render */
+function renderQuizQuestion() {
+    clearInterval(timer);
+
+    const quizBox = document.getElementById('quizBox');
+    quizBox.style.display = 'block';
+    quizBox.innerHTML = '';
+
+    if (quizIndex >= quizQuestions.length) {
+        quizBox.innerHTML = `
+            <div class="quiz-result">
+                Quiz complete! 🎉<br>
+                Score: ${score}
+            </div>
+        `;
+        launchConfetti();
+        return;
+    }
+
+    const q = quizQuestions[quizIndex];
+
+    const qDiv = document.createElement('div');
+    qDiv.className = 'quiz-question';
+    qDiv.textContent = q.question;
+    quizBox.appendChild(qDiv);
+
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'quiz-options';
+
+    q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => checkQuizAnswer(opt);
+        optionsDiv.appendChild(btn);
+    });
+
+    quizBox.appendChild(optionsDiv);
+
+    /* ⏱ timer */
+    timeLeft = 10;
+
+    timer = setInterval(() => {
+        timeLeft--;
+
+        if (timeLeft <= 0) {
+            quizIndex++;
             renderQuizQuestion();
         }
+    }, 1000);
+}
 
-        function renderQuizQuestion() {
-            const quizBox = document.getElementById('quizBox');
-            quizBox.innerHTML = '';
-            quizBox.style.display = 'block';
-            if (quizIndex < quizQuestions.length) {
-                const q = quizQuestions[quizIndex];
-                const qDiv = document.createElement('div');
-                qDiv.className = 'quiz-question';
-                qDiv.textContent = q.question;
-                quizBox.appendChild(qDiv);
+/* ✅ answer check */
+function checkQuizAnswer(selected) {
+    const q = quizQuestions[quizIndex];
 
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'quiz-options';
-                q.options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.textContent = opt;
-                    btn.onclick = () => checkQuizAnswer(opt);
-                    optionsDiv.appendChild(btn);
-                });
-                quizBox.appendChild(optionsDiv);
-            } else {
-                const done = document.createElement('div');
-                done.className = 'quiz-result';
-                done.textContent = "Quiz complete! 🎉 Thanks for trying the Orca Quiz!";
-                quizBox.appendChild(done);
-                launchConfetti();
-                setTimeout(hideQuiz, 10000);
-            }
+    const quizBox = document.getElementById('quizBox');
+
+    const result = document.createElement('div');
+    result.className = 'quiz-result';
+
+    if (selected === q.answer) {
+        result.textContent = "Correct! ✅";
+        score += 10;
+    } else {
+        result.textContent = `Oops! Correct answer: "${q.answer}"`;
+    }
+
+    quizBox.appendChild(result);
+
+    setTimeout(() => {
+        quizIndex++;
+        renderQuizQuestion();
+    }, 900);
+}
+
+/* 🔄 reset */
+function resetPage() {
+    document.body.style.backgroundColor = '#7fdbff';
+    document.getElementById('factBox').style.display = 'none';
+    hideQuiz();
+}
+
+/* 🎉 confetti */
+function launchConfetti() {
+    const end = Date.now() + 3000;
+
+    (function frame() {
+        confetti({
+            particleCount: 4,
+            spread: 60,
+            origin: { x: Math.random(), y: 0 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
         }
+    })();
+}
 
-        function checkQuizAnswer(selected) {
-            const q = quizQuestions[quizIndex];
-            const quizBox = document.getElementById('quizBox');
-            const result = document.createElement('div');
-            result.className = 'quiz-result';
-            if (selected === q.answer) {
-                result.textContent = "Correct! ✅";
-            } else {
-                result.textContent = `Oops! The correct answer is "${q.answer}".`;
-            }
-            quizBox.appendChild(result);
-            setTimeout(() => {
-                quizIndex++;
-                renderQuizQuestion();
-            }, 1200);
-        }
-
-        function changeBackground() {
-            let current = document.body.style.backgroundColor;
-            let newColor;
-            do {
-                newColor = colors[Math.floor(Math.random() * colors.length)];
-            } while (newColor === current);
-            document.body.style.backgroundColor = newColor;
-        }
-
-        function showFact() {
-            hideQuiz();
-            const factBox = document.getElementById('factBox');
-            let lastFact = factBox.textContent;
-            let newFact;
-            do {
-                newFact = facts[Math.floor(Math.random() * facts.length)];
-            } while (newFact === lastFact && facts.length > 1);
-            factBox.style.display = 'block';
-            factBox.textContent = newFact;
-        }
-
-        function resetPage() {
-            document.body.style.backgroundColor = '#7fdbff';
-            const factBox = document.getElementById('factBox');
-            factBox.style.display = 'none';
-            factBox.textContent = '';
-            hideQuiz();
-        }
-
-        function launchConfetti() {
-            const duration = 6000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 90,
-                    spread: 60,
-                    origin: { x: Math.random(), y: 0 },
-                    gravity: 0.9,
-                    ticks: 250,
-                });
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            })();
-        }
-    </script>
+/* 🐋 floating orcas */
+for (let i = 0; i < 5; i++) {
+    const o = document.createElement("div");
+    o.className = "orca-bg";
+    o.innerText = "🐋";
+    o.style.top = Math.random() * 80 + "vh";
+    o.style.animationDuration = (12 + Math.random() * 10) + "s";
+    document.body.appendChild(o);
+}
+</script>
 </body>
 </html>
